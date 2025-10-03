@@ -6,8 +6,8 @@
     --accent-color: #00aaff;
     --text-color: #e0e0e0;
     --heading-color: #ffffff;
-    --font-primary: 'Poppins', sans-serif;
-    --font-secondary: 'Roboto Mono', monospace;
+    --font-primary: 'Inter', 'Poppins', Arial, sans-serif;
+    --font-secondary: 'JetBrains Mono', 'Roboto Mono', monospace;
 }
 
 
