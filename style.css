@@ -1,5 +1,6 @@
 /* ======================= GENERAL STYLES & VARIABLES ======================= */
 :root {
+    --header-height: 70px;
     --bg-color: #0f1020;
     --primary-color: #1b1c34;
     --secondary-color: #2c2d4b;
@@ -19,6 +20,33 @@
 
 html {
     scroll-behavior: smooth;
+}
+
+main {
+    /* ensure anchored sections are not hidden behind the fixed header */
+    scroll-padding-top: var(--header-height);
+}
+
+/* Skip link for keyboard users */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 16px;
+    background: var(--accent-color);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    z-index: 2000;
+    transition: top 0.2s ease;
+}
+.skip-link:focus {
+    top: 12px;
+}
+
+/* Visible focus outlines for accessibility */
+a:focus, .btn:focus, .btn-secondary:focus {
+    outline: 3px solid rgba(0,170,255,0.25);
+    outline-offset: 2px;
 }
 
 body {
