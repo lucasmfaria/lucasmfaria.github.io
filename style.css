@@ -327,36 +327,44 @@ a:hover {
 
 /* Contact buttons with icons (Font Awesome) - icon-only circular buttons */
 .contact-btn {
+    /* keep a generous clickable area but show no visible circle */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 48px; /* larger clickable area */
+    width: 48px; /* clickable area */
     height: 48px;
     padding: 0;
     border-radius: 50%;
     text-decoration: none;
-    background: rgba(255,255,255,0.03);
+    background: transparent; /* no visible circle */
     color: var(--text-color);
-    transition: transform .08s ease, opacity .08s, background-color .12s ease, color .12s ease;
-    border: 1px solid rgba(255,255,255,0.03);
-}
-.contact-btn:hover {
-    transform: translateY(-2px);
-    opacity: .98;
-    background: var(--accent-color);
-    color: #fff; /* icon will inherit */
-    border-color: rgba(255,255,255,0.06);
+    transition: transform .08s ease, color .12s ease;
+    border: none;
 }
 .contact-btn:focus {
     outline: none;
     box-shadow: 0 0 0 4px rgba(0,170,255,0.12);
 }
 .contact-icon {
-    font-size: 1.25rem; /* slightly larger icon */
-    color: inherit; /* follow parent color so it turns white on hover */
+    font-size: 1.9rem; /* larger icon */
+    color: inherit;
     width: auto;
     height: auto;
     line-height: 1;
+    transition: transform .12s ease, color .12s ease;
+}
+.contact-btn:hover .contact-icon,
+.contact-btn:focus .contact-icon {
+    color: var(--accent-color);
+    transform: scale(1.25);
+}
+
+/* hero-specific social icons (placed under profile photo) */
+.hero-social {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0 1.5rem 0;
 }
 /* visually hide the text but keep it for screen readers */
 .contact-text {
