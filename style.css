@@ -425,6 +425,22 @@ footer {
     .about-container {
         grid-template-columns: 1fr;
     }
+    /* evita que o nome do logo quebre em várias linhas no mobile */
+    .nav-logo {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 60%; /* ajuste conforme necessário */
+        font-size: 1.1rem; /* reduz um pouco a fonte no mobile */
+    }
+}
+
+/* telas muito pequenas: reduz ainda mais o texto do logo */
+@media (max-width: 420px) {
+    .nav-logo {
+        font-size: 1rem;
+        max-width: 55%;
+    }
 }
 
 

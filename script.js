@@ -7,6 +7,8 @@ if (hamburger && navMenu) {
     hamburger.addEventListener("click", () => {
         hamburger.classList.toggle("active");
         navMenu.classList.toggle("active");
+        // Recalculate spacing when the mobile menu toggles (header/menu may change layout)
+        syncHeaderSpacing();
     });
 
     // Add click event listener to each navigation link
@@ -37,4 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
     footerParas.forEach(p => {
         p.innerHTML = p.innerHTML.replace(/\d{4}/, year);
     });
+    // initial sync of header spacing to avoid fixed header overlapping content
+    syncHeaderSpacing();
 });
+
+// Keep header spacing in sync with the actual header height.
+// This ensures the fixed header doesn't overlap the top of the page content on mobile
+// (useful when header height can change due to responsive layout or menu toggling).
+function syncHeaderSpacing() {
+    const header = document.querySelector('.header');
+    const main = document.querySelector('main');
+    if (!header || !main) return;
+    const h = header.offsetHeight;
+    // update CSS variable used for scroll-padding (if present)
+    document.documentElement.style.setProperty('--header-height', h + 'px');
+    // also add explicit top padding to main so content is pushed below the fixed header
+    main.style.paddingTop = h + 'px';
+}
+
+// Recompute on window resize to handle orientation changes / dynamic layout
+window.addEventListener('resize', syncHeaderSpacing);
