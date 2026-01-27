@@ -59,3 +59,49 @@ function syncHeaderSpacing() {
 
 // Recompute on window resize to handle orientation changes / dynamic layout
 window.addEventListener('resize', syncHeaderSpacing);
+
+// ======================= SCROLL ANIMATIONS =======================
+const revealElements = document.querySelectorAll(".reveal");
+
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target); // Only animate once
+        }
+    });
+}, {
+    root: null,
+    threshold: 0.15, // Trigger when 15% of the element is visible
+    rootMargin: "0px"
+});
+
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ======================= ACTIVE NAVIGATION HIGHLIGHTING =======================
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll(".nav-link");
+
+if (sections.length > 0) {
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute("id");
+                // Remove active class from all links
+                navLinks.forEach(link => link.classList.remove("active"));
+                // Add active class to the link corresponding to the visible section
+                // We check if the href ENDS with the id (to handle /index.html#about vs #about)
+                const matchingLink = document.querySelector(`.nav-link[href*="#${id}"]`);
+                if (matchingLink) {
+                    matchingLink.classList.add("active");
+                }
+            }
+        });
+    }, {
+        threshold: 0.3 // Trigger when 30% of the section is visible
+    });
+
+    sections.forEach(section => {
+        navObserver.observe(section);
+    });
+}
