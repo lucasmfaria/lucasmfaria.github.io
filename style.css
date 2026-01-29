@@ -264,19 +264,18 @@ a:hover {
 }
 
 /* Vertical line */
-.experience-timeline::after {
+.experience-timeline::before {
     content: '';
     position: absolute;
     width: 2px;
     background-color: var(--secondary-color);
     top: 2rem;
-    bottom: 0rem;
+    bottom: 2rem;
     /* Should end at the bottom of the last item's marker roughly, but last item has margin-bottom 0.
                      The container has padding-bottom 2rem.
                      If we want line to stop at the last marker, we need to know the height.
                      The timeline should probably extend to the last item.
                      Let's set bottom: 2rem to match the top padding symmetry/container padding. */
-    bottom: 2rem;
     left: 20px;
     /* Adjust based on logo size */
     margin-left: -1px;
@@ -287,8 +286,7 @@ a:hover {
     padding-left: 60px;
     /* Space for logo/marker */
     margin-bottom: 2.5rem;
-    z-index: 1;
-    /* Ensure items (and logos) are above the line */
+    /* z-index removed to avoid stacking issues */
 }
 
 .timeline-item:last-child {
