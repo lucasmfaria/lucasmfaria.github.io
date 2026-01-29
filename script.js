@@ -61,6 +61,7 @@ function syncHeaderSpacing() {
 window.addEventListener('resize', syncHeaderSpacing);
 
 // ======================= SCROLL ANIMATIONS =======================
+// ======================= SCROLL ANIMATIONS =======================
 const revealElements = document.querySelectorAll(".reveal");
 
 const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -72,11 +73,20 @@ const revealObserver = new IntersectionObserver((entries, observer) => {
     });
 }, {
     root: null,
-    threshold: 0.15, // Trigger when 15% of the element is visible
-    rootMargin: "0px"
+    threshold: 0.1, // Lower threshold for better mobile detection
+    rootMargin: "0px 0px -50px 0px" // Trigger slightly before the bottom
 });
 
 revealElements.forEach(el => revealObserver.observe(el));
+
+// Fallback: Force the hero section or top elements to be visible after a short delay
+// This prevents the "blank page" issue if the observer doesn't fire correctly on load
+setTimeout(() => {
+    const heroReveals = document.querySelectorAll(".hero-section .reveal, .articles-section .reveal");
+    heroReveals.forEach(el => {
+        el.classList.add("active");
+    });
+}, 100);
 
 // ======================= ACTIVE NAVIGATION HIGHLIGHTING =======================
 const sections = document.querySelectorAll("section[id]");

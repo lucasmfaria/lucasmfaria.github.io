@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construindo Agentes de IA Autônomos: Lições Aprendidas - Lucas Meneghesso Faria</title>
+    <meta name="description"
+        content="Desenvolver agentes autônomos como Pam e Clin.IA trouxe desafios únicos. Um mergulho profundo em arquitetura e gerenciamento de estado com LangGraph.">
+
+    <!-- Open Graph tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Construindo Agentes de IA Autônomos: Lições Aprendidas">
+    <meta property="og:description"
+        content="Desenvolver agentes autônomos como Pam e Clin.IA trouxe desafios únicos. Um mergulho profundo em arquitetura e gerenciamento de estado com LangGraph.">
+    <meta property="og:image" content="https://lucasmfaria.github.io/images/pam_friendly_ai_teacher_cropped.jpg">
+    <meta property="og:url" content="https://lucasmfaria.github.io/pt/articles/building-ai-agents.html">
+    <meta property="og:locale" content="pt_BR">
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js for syntax highlighting if needed -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#maincontent">Pular para o conteúdo</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="/pt/index.html" class="nav-logo">Lucas Meneghesso Faria</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/pt/index.html#about" class="nav-link">Sobre</a></li>
+                <li class="nav-item"><a href="/pt/index.html#projects" class="nav-link">Projetos</a></li>
+                <li class="nav-item"><a href="/pt/articles/index.html" class="nav-link active">Artigos</a></li>
+                <li class="nav-item"><a href="/pt/index.html#contact" class="nav-link">Contato</a></li>
+                <li class="nav-item lang-switcher"><a href="/articles/building-ai-agents.html">EN</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main id="maincontent">
+        <article class="article-container">
+            <a href="/pt/articles/index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Voltar para
+                Artigos</a>
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> 29 de Janeiro, 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Agentes de IA</span>
+                    <span><i class="fa-solid fa-clock"></i> 5 min de leitura</span>
+                </div>
+                <h1 class="article-title">Construindo Agentes de IA Autônomos: Lições Aprendidas</h1>
+            </header>
+
+            <div class="article-content">
+                <p>
+                    O cenário da Inteligência Artificial está mudando rapidamente de modelos estáticos para agentes
+                    dinâmicos e autônomos.
+                    Em meus projetos recentes, como <strong>Pam (Friendly AI Teacher)</strong> e
+                    <strong>Clin.IA</strong>,
+                    tive a oportunidade de mergulhar fundo na construção de agentes que não apenas respondem a
+                    perguntas, mas gerenciam estado,
+                    contexto e fluxos de trabalho complexos.
+                </p>
+
+                <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Interface Pam AI Teacher" loading="lazy">
+                <p><em>Figura 1: Pam, uma agente de IA projetada para ajudar usuários a praticar idiomas via
+                        WhatsApp.</em></p>
+
+                <h2>O Desafio do Gerenciamento de Estado</h2>
+                <p>
+                    Um dos maiores obstáculos na construção de agentes conversacionais é manter o contexto em longas
+                    conversas.
+                    Chatbots tradicionais muitas vezes perdem o fio da meada ou a intenção do usuário após algumas
+                    trocas de mensagens.
+                </p>
+                <p>
+                    Para resolver isso, utilizei <strong>LangGraph</strong> (e LangChain) para criar uma arquitetura de
+                    grafos com estado.
+                    Em vez de uma cadeia linear de pensamento, o agente se move entre nós em um grafo, onde cada nó
+                    representa uma capacidade ou estado específico.
+                </p>
+
+                <h3>Trecho de Código: Definindo um Grafo de Estado</h3>
+                <p>Aqui ilustra um conceito simplificado de como poderíamos definir um grafo de estado:</p>
+
+                <pre><code class="language-python">from langgraph.graph import StateGraph, END
+
+class AgentState(TypedDict):
+    messages: Annotated[List[BaseMessage], operator.add]
+    next_step: str
+
+workflow = StateGraph(AgentState)
+
+# Definir nós
+workflow.add_node("agent", call_model)
+workflow.add_node("action", execute_tool)
+
+# Definir arestas
+workflow.add_conditional_edges(
+    "agent",
+    should_continue,
+    {
+        "continue": "action",
+        "end": END
+    }
+)
+workflow.add_edge("action", "agent")
+
+app = workflow.compile()</code></pre>
+
+                <h2>Integração com Mensageiros</h2>
+                <p>
+                    Implantar esses agentes em plataformas como o <strong>WhatsApp</strong> adiciona outra camada de
+                    complexidade.
+                    A latência é crítica. Os usuários esperam respostas quase instantâneas.
+                </p>
+                <p>
+                    Usei <strong>Docker</strong> para containerizar os serviços e <strong>n8n</strong> para orquestrar
+                    webhooks e fluxos de mensagens, garantindo uma arquitetura robusta e escalável.
+                </p>
+
+                <h2>Principais Aprendizados</h2>
+                <ul>
+                    <li><strong>Estado é Rei</strong>: Um esquema de estado bem projetado é mais importante do que o
+                        tamanho do modelo para agentes de tarefas específicas.</li>
+                    <li><strong>Ferramentas Importam</strong>: Dar aos agentes as ferramentas certas (acesso ao
+                        calendário, consultas ao banco de dados) permite que eles façam um trabalho real.</li>
+                    <li><strong>Loop de Feedback do Usuário</strong>: Iterações constantes baseadas em conversas reais
+                        de usuários ajudaram a refinar a personalidade e a confiabilidade dos agentes.</li>
+                </ul>
+
+                <p>
+                    Construir agentes é apenas o começo. O futuro reside em sistemas multi-agentes onde agentes
+                    especializados colaboram para resolver problemas ainda mais complexos.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Lucas Meneghesso Faria. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>

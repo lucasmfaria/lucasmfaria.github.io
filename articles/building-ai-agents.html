@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Autonomous AI Agents: Lessons Learned - Lucas Meneghesso Faria</title>
+    <meta name="description"
+        content="Developing autonomous agents like Pam and Clin.IA brought unique challenges. A deep dive into architecture and state management with LangGraph.">
+
+    <!-- Open Graph tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Building Autonomous AI Agents: Lessons Learned">
+    <meta property="og:description"
+        content="Developing autonomous agents like Pam and Clin.IA brought unique challenges. A deep dive into architecture and state management with LangGraph.">
+    <meta property="og:image" content="https://lucasmfaria.github.io/images/pam_friendly_ai_teacher_cropped.jpg">
+    <meta property="og:url" content="https://lucasmfaria.github.io/articles/building-ai-agents.html">
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js for syntax highlighting if needed -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#maincontent">Skip to content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="nav-logo">Lucas Meneghesso Faria</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="/articles/index.html" class="nav-link active">Articles</a></li>
+                <li class="nav-item"><a href="/#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item lang-switcher"><a href="/pt/articles/building-ai-agents.html">PT-BR</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main id="maincontent">
+        <article class="article-container">
+            <a href="/articles/index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Articles</a>
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> January 29, 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> AI Agents</span>
+                    <span><i class="fa-solid fa-clock"></i> 5 min read</span>
+                </div>
+                <h1 class="article-title">Building Autonomous AI Agents: Lessons Learned</h1>
+            </header>
+
+            <div class="article-content">
+                <p>
+                    The landscape of Artificial Intelligence is shifting rapidly from static models to dynamic,
+                    autonomous agents.
+                    In my recent projects, such as <strong>Pam (Friendly AI Teacher)</strong> and
+                    <strong>Clin.IA</strong>,
+                    I've had the opportunity to dive deep into building agents that not only respond to queries but
+                    manage state,
+                    context, and complex workflows.
+                </p>
+
+                <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Pam AI Teacher Interface" loading="lazy">
+                <p><em>Figure 1: Pam, an AI agent designed to help users practice languages via WhatsApp.</em></p>
+
+                <h2>The Challenge of State Management</h2>
+                <p>
+                    One of the biggest hurdles in building conversational agents is maintaining context over long
+                    conversations.
+                    Traditional chatbots often lose track of the subject or user intent after a few turns.
+                </p>
+                <p>
+                    To solve this, I leveraged <strong>LangGraph</strong> (and LangChain) to create a stateful graph
+                    architecture.
+                    Instead of a linear chain of thought, the agent moves between nodes in a graph, where each node
+                    represents a specific capability or state.
+                </p>
+
+                <h3>Code Snippet: Defining a State Graph</h3>
+                <p>Here illustrates a simplified concept of how we might define a state graph:</p>
+
+                <pre><code class="language-python">from langgraph.graph import StateGraph, END
+
+class AgentState(TypedDict):
+    messages: Annotated[List[BaseMessage], operator.add]
+    next_step: str
+
+workflow = StateGraph(AgentState)
+
+# Define nodes
+workflow.add_node("agent", call_model)
+workflow.add_node("action", execute_tool)
+
+# Define edges
+workflow.add_conditional_edges(
+    "agent",
+    should_continue,
+    {
+        "continue": "action",
+        "end": END
+    }
+)
+workflow.add_edge("action", "agent")
+
+app = workflow.compile()</code></pre>
+
+                <h2>Integration with Messengers</h2>
+                <p>
+                    Deploying these agents to platforms like <strong>WhatsApp</strong> adds another layer of complexity.
+                    Latency is critical. Users expect near-instant responses.
+                </p>
+                <p>
+                    I used <strong>Docker</strong> to containerize the services and <strong>n8n</strong> for
+                    orchestrating
+                    webhooks and message flows, ensuring a robust and scalable architecture.
+                </p>
+
+                <h2>Key Takeaways</h2>
+                <ul>
+                    <li><strong>State is King</strong>: A well-designed state schema is more important than the model
+                        size for task-specific agents.</li>
+                    <li><strong>Tooling Matters</strong>: Giving agents the right tools (calendar access, database
+                        queries) empowers them to do real work.</li>
+                    <li><strong>User Feedback Loop</strong>: Constant iterations based on real user conversations helped
+                        refine the personality and reliability of the agents.</li>
+                </ul>
+
+                <p>
+                    Building agents is just the beginning. The future lies in multi-agent systems where specialized
+                    agents collaborate to solve even more complex problems.
+                </p>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Lucas Meneghesso Faria. All rights reserved.</p>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
