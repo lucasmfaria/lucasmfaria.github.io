@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Construindo Agentes de IA Autônomos: Lições Aprendidas - Lucas Meneghesso Faria</title>
+    <title>Construindo Agentes de IA Autônomos - Parte 1: Gerenciamento de Memória - Lucas Meneghesso Faria</title>
     <meta name="description"
-        content="Desenvolver agentes autônomos como Pam e Clin.IA trouxe desafios únicos. Um mergulho profundo em arquitetura e gerenciamento de estado com LangGraph.">
+        content="Construindo Agentes de IA Autônomos - Parte 1: Gerenciamento de Memória. Um mergulho profundo nas estratégias de retenção de contexto para agentes conversacionais.">
 
     <!-- Open Graph tags -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Construindo Agentes de IA Autônomos: Lições Aprendidas">
+    <meta property="og:title" content="Construindo Agentes de IA Autônomos - Parte 1: Gerenciamento de Memória">
     <meta property="og:description"
-        content="Desenvolver agentes autônomos como Pam e Clin.IA trouxe desafios únicos. Um mergulho profundo em arquitetura e gerenciamento de estado com LangGraph.">
-    <meta property="og:image" content="https://lucasmfaria.github.io/images/pam_friendly_ai_teacher_cropped.jpg">
+        content="Construindo Agentes de IA Autônomos - Parte 1: Gerenciamento de Memória. Um mergulho profundo nas estratégias de retenção de contexto para agentes conversacionais.">
+    <meta property="og:image" content="https://lucasmfaria.github.io/images/ai_memory_types.png">
     <meta property="og:url" content="https://lucasmfaria.github.io/pt/articles/building-ai-agents.html">
     <meta property="og:locale" content="pt_BR">
 
@@ -63,93 +63,114 @@
                 <div class="article-meta">
                     <span><i class="fa-regular fa-calendar"></i> 29 de Janeiro, 2026</span>
                     <span><i class="fa-solid fa-tag"></i> Agentes de IA</span>
-                    <span><i class="fa-solid fa-clock"></i> 5 min de leitura</span>
+                    <span><i class="fa-solid fa-clock"></i> 3 min de leitura</span>
                 </div>
-                <h1 class="article-title">Construindo Agentes de IA Autônomos: Lições Aprendidas</h1>
+                <h1 class="article-title">Construindo Agentes de IA Autônomos - Parte 1: Gerenciamento de Memória</h1>
             </header>
 
             <div class="article-content">
                 <p>
-                    O cenário da Inteligência Artificial está mudando rapidamente de modelos estáticos para agentes
-                    dinâmicos e autônomos.
-                    Em meus projetos recentes, como <strong>Pam (Friendly AI Teacher)</strong> e
-                    <strong>Clin.IA</strong>,
-                    tive a oportunidade de mergulhar fundo na construção de agentes que não apenas respondem a
-                    perguntas, mas gerenciam estado,
-                    contexto e fluxos de trabalho complexos.
+                    Antes de desenvolver qualquer agente de IA, é fundamental definirmos a estratégia de retenção de
+                    contexto.
+                    A memória não é apenas um armazenamento de dados; é a espinha dorsal da "personalidade" e da
+                    utilidade do agente.
+                    Temos que nos perguntar o seguinte sobre a nossa aplicação:
                 </p>
 
-                <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Interface Pam AI Teacher" loading="lazy">
+                <div class="question-box">
+                    <ul class="question-list">
+                        <li><strong>Memória de Curto Prazo?</strong> É necessária para garantir a continuidade e fluidez
+                            da conversa imediata?</li>
+                        <li><strong>Memória de Longo Prazo?</strong> O agente precisa lembrar de fatos de sessões
+                            passadas?</li>
+                        <li><strong>Granularidade?</strong> Ela tem que guardar todos os detalhes exatos ou apenas o
+                            conceito geral?</li>
+                        <li><strong>Recuperação (Retrieval)?</strong> Como será a guarda, a busca e o uso dessas
+                            informações?</li>
+                    </ul>
+                </div>
+
+                <figure>
+                    <img src="/images/articles/ai_memory_types.png" alt="Arquitetura de Memória em IA"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Arquitetura comparativa:
+                        Memória de Curto Prazo vs Longo Prazo em sistemas de IA.</figcaption>
+                </figure>
+
+                <h2>Exemplo Prático: Pam - Friendly AI Teacher</h2>
+
+                <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Interface Pam AI Teacher"
+                    class="concept-img" loading="lazy">
                 <p><em>Figura 1: Pam, uma agente de IA projetada para ajudar usuários a praticar idiomas via
                         WhatsApp.</em></p>
 
-                <h2>O Desafio do Gerenciamento de Estado</h2>
                 <p>
-                    Um dos maiores obstáculos na construção de agentes conversacionais é manter o contexto em longas
-                    conversas.
-                    Chatbots tradicionais muitas vezes perdem o fio da meada ou a intenção do usuário após algumas
-                    trocas de mensagens.
+                    O intuito da <strong>Pam</strong> é atuar como uma amiga conversando com você, uma amiga que tem
+                    muito conhecimento de línguas e sugere correções quando existe oportunidade.
                 </p>
                 <p>
-                    Para resolver isso, utilizei <strong>LangGraph</strong> (e LangChain) para criar uma arquitetura de
-                    grafos com estado.
-                    Em vez de uma cadeia linear de pensamento, o agente se move entre nós em um grafo, onde cada nó
-                    representa uma capacidade ou estado específico.
+                    Em uma conversa como essa, <strong>não é necessário um banco de dados com detalhes exatos de cada
+                        assunto</strong>. Como o objetivo é fazer o usuário falar e exercitar, eu precisava de um
+                    histórico com informações relevantes sobre o usuário apenas, e que tenham sido trazidas por ele
+                    durante a conversa: nome, profissão, hobbies, o que fez recentemente, gosto musical, etc.
                 </p>
 
-                <h3>Trecho de Código: Definindo um Grafo de Estado</h3>
-                <p>Aqui ilustra um conceito simplificado de como poderíamos definir um grafo de estado:</p>
+                <h3>Respondendo às perguntas para a Pam:</h3>
+                <div class="question-box" style="border-left-color: #2ecc71;">
+                    <ul class="question-list">
+                        <li><strong>Sim (Curto Prazo):</strong> Configurei que pelo menos as últimas 10 mensagens devem
+                            estar intactas sempre para manter o fluxo.</li>
+                        <li><strong>Sim (Longo Prazo):</strong> Necessário para personalização.</li>
+                        <li><strong>Não (Detalhes):</strong> Pode ser uma memória que lembra vagamente de informações
+                            trazidas pelo usuário (resumos).</li>
+                        <li><strong>Estratégia:</strong> Memória resumida resolve, sempre sendo passado o resumo
+                            acumulado e as últimas conversas para a LLM.</li>
+                    </ul>
+                </div>
 
-                <pre><code class="language-python">from langgraph.graph import StateGraph, END
-
-class AgentState(TypedDict):
-    messages: Annotated[List[BaseMessage], operator.add]
-    next_step: str
-
-workflow = StateGraph(AgentState)
-
-# Definir nós
-workflow.add_node("agent", call_model)
-workflow.add_node("action", execute_tool)
-
-# Definir arestas
-workflow.add_conditional_edges(
-    "agent",
-    should_continue,
-    {
-        "continue": "action",
-        "end": END
-    }
-)
-workflow.add_edge("action", "agent")
-
-app = workflow.compile()</code></pre>
-
-                <h2>Integração com Mensageiros</h2>
+                <h2>A Solução: Memória Elástica</h2>
                 <p>
-                    Implantar esses agentes em plataformas como o <strong>WhatsApp</strong> adiciona outra camada de
-                    complexidade.
-                    A latência é crítica. Os usuários esperam respostas quase instantâneas.
-                </p>
-                <p>
-                    Usei <strong>Docker</strong> para containerizar os serviços e <strong>n8n</strong> para orquestrar
-                    webhooks e fluxos de mensagens, garantindo uma arquitetura robusta e escalável.
+                    Nesse caso, desenvolvi uma arquitetura de <strong>"Memória Elástica"</strong>. Ela funciona como um
+                    buffer inteligente que se adapta conforme a conversa evolui, gerenciado diretamente pelo
+                    <strong>LangGraph</strong>.
                 </p>
 
-                <h2>Principais Aprendizados</h2>
+                <figure>
+                    <img src="/images/articles/elastic_memory.png" alt="Visualização da Memória Elástica"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Visualização da compressão
+                        de mensagens antigas em um "núcleo de resumo" enquanto o contexto recente permanece nítido.
+                    </figcaption>
+                </figure>
+
+                <p>
+                    A dinâmica funciona da seguinte forma:
+                </p>
                 <ul>
-                    <li><strong>Estado é Rei</strong>: Um esquema de estado bem projetado é mais importante do que o
-                        tamanho do modelo para agentes de tarefas específicas.</li>
-                    <li><strong>Ferramentas Importam</strong>: Dar aos agentes as ferramentas certas (acesso ao
-                        calendário, consultas ao banco de dados) permite que eles façam um trabalho real.</li>
-                    <li><strong>Loop de Feedback do Usuário</strong>: Iterações constantes baseadas em conversas reais
-                        de usuários ajudaram a refinar a personalidade e a confiabilidade dos agentes.</li>
+                    <li>A conversa inicia apenas com os <em>system prompts</em>.</li>
+                    <li>Conforme o usuário conversa, novas mensagens preenchem a janela de contexto.</li>
+                    <li>Quando atinge um <strong>threshold de tokens</strong>, a conversa é processada.</li>
+                    <li>O sistema gera um resumo de tudo <em>exceto</em> as últimas X mensagens (para garantir que a IA
+                        não "esqueça" o que acabou de ser dito).</li>
+                    <li>Uma nova memória é instanciada contendo:
+                        <code>[Resumo Anterior + Novas Mensagens Recentes]</code>.
+                    </li>
                 </ul>
 
-                <p>
-                    Construir agentes é apenas o começo. O futuro reside em sistemas multi-agentes onde agentes
-                    especializados colaboram para resolver problemas ainda mais complexos.
-                </p>
+                <h3>Benefícios dessa abordagem</h3>
+                <ul class="benefit-list">
+                    <li><i class="fa-solid fa-check benefit-icon"></i> Fluidez da conversa mantida</li>
+                    <li><i class="fa-solid fa-coins benefit-icon"></i> Baixo uso de tokens (Redução de Custo)</li>
+                    <li><i class="fa-solid fa-bolt benefit-icon"></i> Baixa latência nas respostas</li>
+                    <li><i class="fa-solid fa-list-check benefit-icon"></i> Gerenciamento simplificado</li>
+                    <li><i class="fa-solid fa-server benefit-icon"></i> Baixo custo de armazenamento</li>
+                    <li><i class="fa-solid fa-box-open benefit-icon"></i> Encapsulamento simples no LangGraph</li>
+                </ul>
+
+                <br>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="/pt/articles/index.html" class="btn">Ler Mais Artigos</a>
+                </div>
             </div>
 
         </article>
