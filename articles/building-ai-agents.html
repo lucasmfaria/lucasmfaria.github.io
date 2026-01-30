@@ -87,83 +87,91 @@
                 </div>
 
                 <figure>
-                    <img src="/images/ai_memory_types.png" alt="AI Memory Architecture" class="concept-img"
-                        loading="lazy">
-                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Comparative Architecture:
-                        Short-term vs Long-term Memory in AI systems.</figcaption>
-                </figure>
+                    <figure>
+                        <img src="/images/articles/ai_memory_types.png" alt="AI Memory Architecture" class="concept-img"
+                            loading="lazy">
+                        <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Comparative
+                            Architecture:
+                            Short-term vs Long-term Memory in AI systems.</figcaption>
+                    </figure>
 
-                <h2>Practical Example: Pam - Friendly AI Teacher</h2>
+                    <h2>Practical Example: Pam - Friendly AI Teacher</h2>
 
-                <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Pam AI Teacher Interface"
-                    class="concept-img" loading="lazy">
-                <p><em>Figure 1: Pam, an AI agent designed to help users practice languages via WhatsApp.</em></p>
+                    <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Pam AI Teacher Interface"
+                        class="concept-img" loading="lazy">
+                    <p><em>Figure 1: Pam, an AI agent designed to help users practice languages via WhatsApp.</em></p>
 
-                <p>
-                    The goal of <strong>Pam</strong> is to act as a friend conversing with you, a friend who has
-                    extensive language knowledge and suggests corrections whenever there is an opportunity.
-                </p>
-                <p>
-                    In a conversation like this, <strong>an exact database with details of every subject is not
-                        necessary</strong>. Since the goal is to make the user speak and practice, I needed a history
-                    with only relevant information about the user, provided by them during the conversation: name,
-                    profession, hobbies, recent activities, music taste, etc.
-                </p>
+                    <p>
+                        The goal of <strong>Pam</strong> is to act as a friend conversing with you, a friend who has
+                        extensive language knowledge and suggests corrections whenever there is an opportunity.
+                    </p>
+                    <p>
+                        In a conversation like this, <strong>an exact database with details of every subject is not
+                            necessary</strong>. Since the goal is to make the user speak and practice, I needed a
+                        history
+                        with only relevant information about the user, provided by them during the conversation: name,
+                        profession, hobbies, recent activities, music taste, etc.
+                    </p>
 
-                <h3>answering the questions for Pam:</h3>
-                <div class="question-box" style="border-left-color: #2ecc71;">
-                    <ul class="question-list">
-                        <li><strong>Yes (Short-term):</strong> Configured so at least the last 10 messages remain intact
-                            to maintain flow.</li>
-                        <li><strong>Yes (Long-term):</strong> Necessary for personalization.</li>
-                        <li><strong>No (Details):</strong> It can be a memory that vaguely remembers information brought
-                            up by the user (summaries).</li>
-                        <li><strong>Strategy:</strong> Summarized memory works, always passing the accumulated summary
-                            and the last few conversations to the LLM.</li>
+                    <h3>answering the questions for Pam:</h3>
+                    <div class="question-box" style="border-left-color: #2ecc71;">
+                        <ul class="question-list">
+                            <li><strong>Yes (Short-term):</strong> Configured so at least the last 10 messages remain
+                                intact
+                                to maintain flow.</li>
+                            <li><strong>Yes (Long-term):</strong> Necessary for personalization.</li>
+                            <li><strong>No (Details):</strong> It can be a memory that vaguely remembers information
+                                brought
+                                up by the user (summaries).</li>
+                            <li><strong>Strategy:</strong> Summarized memory works, always passing the accumulated
+                                summary
+                                and the last few conversations to the LLM.</li>
+                        </ul>
+                    </div>
+
+                    <h2>The Solution: Elastic Memory</h2>
+                    <p>
+                        In this case, I developed an <strong>"Elastic Memory"</strong> architecture. It functions as an
+                        intelligent buffer that adapts as the conversation evolves, managed directly by
+                        <strong>LangGraph</strong>.
+                    </p>
+
+                    <figure>
+                        <img src="/images/articles/elastic_memory.png" alt="Elastic Memory Visualization"
+                            class="concept-img" loading="lazy">
+                        <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Visualization of older
+                            messages compressing into a "summary core" while recent context remains sharp.</figcaption>
+                    </figure>
+
+                    <p>
+                        The dynamic works as follows:
+                    </p>
+                    <ul>
+                        <li>The conversation starts with only the <em>system prompts</em>.</li>
+                        <li>As the user converses, new messages fill the context window.</li>
+                        <li>When a <strong>token threshold</strong> is reached, the conversation is processed.</li>
+                        <li>The system generates a summary of everything <em>except</em> the last X messages (to ensure
+                            the
+                            AI doesn't "forget" what was just said).</li>
+                        <li>A new memory is instantiated containing:
+                            <code>[Previous Summary + New Recent Messages]</code>.
+                        </li>
                     </ul>
-                </div>
 
-                <h2>The Solution: Elastic Memory</h2>
-                <p>
-                    In this case, I developed an <strong>"Elastic Memory"</strong> architecture. It functions as an
-                    intelligent buffer that adapts as the conversation evolves, managed directly by
-                    <strong>LangGraph</strong>.
-                </p>
+                    <h3>Benefits of this approach</h3>
+                    <ul class="benefit-list">
+                        <li><i class="fa-solid fa-check benefit-icon"></i> Conversation fluidity maintained</li>
+                        <li><i class="fa-solid fa-coins benefit-icon"></i> Low token usage (Cost Reduction)</li>
+                        <li><i class="fa-solid fa-bolt benefit-icon"></i> Low response latency</li>
+                        <li><i class="fa-solid fa-list-check benefit-icon"></i> Simplified management</li>
+                        <li><i class="fa-solid fa-server benefit-icon"></i> Low storage cost</li>
+                        <li><i class="fa-solid fa-box-open benefit-icon"></i> Simple encapsulation in LangGraph</li>
+                    </ul>
 
-                <figure>
-                    <img src="/images/elastic_memory.png" alt="Elastic Memory Visualization" class="concept-img"
-                        loading="lazy">
-                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Visualization of older
-                        messages compressing into a "summary core" while recent context remains sharp.</figcaption>
-                </figure>
-
-                <p>
-                    The dynamic works as follows:
-                </p>
-                <ul>
-                    <li>The conversation starts with only the <em>system prompts</em>.</li>
-                    <li>As the user converses, new messages fill the context window.</li>
-                    <li>When a <strong>token threshold</strong> is reached, the conversation is processed.</li>
-                    <li>The system generates a summary of everything <em>except</em> the last X messages (to ensure the
-                        AI doesn't "forget" what was just said).</li>
-                    <li>A new memory is instantiated containing: <code>[Previous Summary + New Recent Messages]</code>.
-                    </li>
-                </ul>
-
-                <h3>Benefits of this approach</h3>
-                <ul class="benefit-list">
-                    <li><i class="fa-solid fa-check benefit-icon"></i> Conversation fluidity maintained</li>
-                    <li><i class="fa-solid fa-coins benefit-icon"></i> Low token usage (Cost Reduction)</li>
-                    <li><i class="fa-solid fa-bolt benefit-icon"></i> Low response latency</li>
-                    <li><i class="fa-solid fa-list-check benefit-icon"></i> Simplified management</li>
-                    <li><i class="fa-solid fa-server benefit-icon"></i> Low storage cost</li>
-                    <li><i class="fa-solid fa-box-open benefit-icon"></i> Simple encapsulation in LangGraph</li>
-                </ul>
-
-                <br>
-                <div style="text-align: center; margin-top: 3rem;">
-                    <a href="/articles/index.html" class="btn">Read More Articles</a>
-                </div>
+                    <br>
+                    <div style="text-align: center; margin-top: 3rem;">
+                        <a href="/articles/index.html" class="btn">Read More Articles</a>
+                    </div>
             </div>
 
         </article>
