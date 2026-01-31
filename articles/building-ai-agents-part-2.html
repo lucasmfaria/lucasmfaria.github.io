@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Autonomous AI Agents - Part 2: Workflows vs Agents - Lucas Meneghesso Faria</title>
+    <meta name="description"
+        content="Building Autonomous AI Agents - Part 2: Workflows vs Agents. Understanding when to use deterministic steps versus autonomous decision making.">
+
+    <!-- Open Graph tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Building Autonomous AI Agents - Part 2: Workflows vs Agents">
+    <meta property="og:description"
+        content="Building Autonomous AI Agents - Part 2: Workflows vs Agents. Understanding when to use deterministic steps versus autonomous decision making.">
+    <!-- Updated specific thumbnail -->
+    <meta property="og:image" content="https://lucasmfaria.github.io/images/articles/workflows_vs_agents_vs.png">
+    <meta property="og:url" content="https://lucasmfaria.github.io/articles/building-ai-agents-part-2.html">
+    <meta property="og:locale" content="en_US">
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#maincontent">Skip to content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="nav-logo">Lucas Meneghesso Faria</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="/articles/index.html" class="nav-link active">Articles</a></li>
+                <li class="nav-item"><a href="/#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item lang-switcher"><a href="/pt/articles/building-ai-agents-part-2.html">PT-BR</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main id="maincontent">
+        <article class="article-container">
+            <a href="/articles/index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Articles</a>
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> January 31, 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> AI Agents</span>
+                    <span><i class="fa-solid fa-clock"></i> 6 min read</span>
+                </div>
+                <h1 class="article-title">Building Autonomous AI Agents - Part 2: Workflows vs Agents</h1>
+            </header>
+
+            <div class="article-content">
+                <p>
+                    In <a href="/articles/building-ai-agents.html">Part 1</a>, we discussed the importance of memory
+                    system design for AI agents.
+                    However, before we even worry about memory, we face a more fundamental architectural question:
+                    <strong>Do you really need an autonomous agent, or is a workflow enough?</strong>
+                </p>
+                <p>
+                    With the hype surrounding "Agentic AI," it's easy to fall into the trap of trying to solve every
+                    problem with a fully autonomous system.
+                    But autonomy comes with a cost: simpler problems often require simpler solutions.
+                </p>
+
+                <h2>What is a Workflow?</h2>
+                <p>
+                    A <strong>Workflow</strong> is a system where the steps of execution are predefined. Even if some of
+                    those steps involve calling an LLM (Large Language Model),
+                    the path the data takes is clear from the start. It is <strong>deterministic</strong> in its flow,
+                    even if the content is probabilistic.
+                </p>
+
+                <div class="question-box">
+                    <h3>Characteristics of a Workflow</h3>
+                    <ul class="question-list">
+                        <li><strong>Predefined Path:</strong> Step A always leads to Step B (or C, based on simple
+                            logic).</li>
+                        <li><strong>Control:</strong> You know exactly what happened and in what order.</li>
+                        <li><strong>Reliability:</strong> Easier to debug and test.</li>
+                    </ul>
+                </div>
+
+                <figure>
+                    <img src="/images/articles/workflow_diagram.png" alt="Workflow Diagram: Linear Process"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">A linear, deterministic
+                        workflow: Step A → Step B → Step C.</figcaption>
+                </figure>
+
+                <p>
+                    <strong>Example: A basic RAG (Retrieval-Augmented Generation) pipeline.</strong><br>
+                    1. User asks a question.<br>
+                    2. System searches the database.<br>
+                    3. System inserts results into the prompt.<br>
+                    4. LLM generates the answer.<br>
+                </p>
+
+                <p>
+                    There is no "decision" being made about <em>what</em> to do next. The system doesn't wake up and
+                    decide "today I won't search the database, I'll just answer from memory."
+                    It follows the script.
+                </p>
+
+                <h2>What is an Agent?</h2>
+                <p>
+                    An <strong>Agent</strong> is a system that uses an LLM as a "Brain" to decide <strong>which steps to
+                        take</strong> to achieve a goal.
+                    The developer provides a set of tools (functions), and the Agent decides if, when, and how to use
+                    them.
+                </p>
+
+                <div class="question-box" style="border-left-color: #9b59b6;">
+                    <h3>Characteristics of an Agent</h3>
+                    <ul class="question-list">
+                        <li><strong>Dynamic Path:</strong> The system determines the flow at runtime.</li>
+                        <li><strong>Autonomy:</strong> Can handle ambiguity and multi-step reasoning.</li>
+                        <li><strong>Loop-based:</strong> Often operates in a <em>Thought -> Act -> Observe</em> loop.
+                        </li>
+                    </ul>
+                </div>
+
+                <figure>
+                    <img src="/images/articles/agent_loop_diagram.png" alt="Agent Diagram: Cyclical Process"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">An autonomous agent loop:
+                        Observation → Thought → Action.</figcaption>
+                </figure>
+
+                <p>
+                    <strong>Example: "Book a flight to Paris for next week."</strong><br>
+                    An agent might:<br>
+                    1. Search for flights.<br>
+                    2. Realize it doesn't know "next week" relative to what (or user preferences).<br>
+                    3. Decide to use a tool to check the current date.<br>
+                    4. Ask the user for clarification on preferred airlines.<br>
+                    5. Finally, use the booking tool.
+                </p>
+
+                <h2>Case Study: Pam - Friendly AI Teacher</h2>
+
+                <figure>
+                    <img src="/images/pam_friendly_ai_teacher_cropped.jpg" alt="Pam AI Teacher Interface"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Pam: Designed for high
+                        responsiveness and structured feedback.</figcaption>
+                </figure>
+
+                <p>
+                    A practical example of this distinction is <strong>Pam</strong>, my AI language teacher project.
+                    When designing Pam, I had a choice: build a fully autonomous agent that decides <em>how</em> to
+                    teach, or build a structured teacher.
+                </p>
+
+                <p>
+                    <strong>The Constraint:</strong> Latency. For a conversation to feel natural (especially voice
+                    conversation), the response time had to be minimal.
+                    An autonomous agent that "thinks" about the best pedagogical approach for every sentence would be
+                    too slow.
+                </p>
+
+                <p>
+                    <strong>The Solution:</strong> A <strong>LangGraph Workflow</strong>.
+                </p>
+
+                <div class="question-box" style="border-left-color: #e74c3c;">
+                    <h3>Pam's Workflow Logic</h3>
+                    <p>Instead of asking "What should I do?", the system follows a strict parallel processing path for
+                        every user message:</p>
+                    <ul class="question-list">
+                        <li><strong>Input:</strong> User sends a message (Audio/Text).</li>
+                        <li><strong>Parallel Process 1 (Conversation):</strong> Generate a natural, friendly response.
+                        </li>
+                        <li><strong>Parallel Process 2 (Correction):</strong> Analyze the user's input for grammatical
+                            errors and generate a correction if needed.</li>
+                        <li><strong>Synthesizer:</strong> Combine content + correction.</li>
+                        <li><strong>Output:</strong> Generate Audio and Text.</li>
+                    </ul>
+                </div>
+
+                <p>
+                    Because the steps are deterministic (Always listen -> Always Check Grammar + Always Chat -> Always
+                    Reply),
+                    we achieve high speed and consistent behavior. We don't need the AI to "decide" if it should correct
+                    the user;
+                    that is a product requirement, so it becomes a hard-coded step in the workflow.
+                </p>
+
+                <h2>Case Study: Clin.IA - Medical Secretary Agent</h2>
+
+                <figure>
+                    <img src="/images/clinia.JPG" alt="Clin.IA Agent Interface" class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">Clin.IA: A robust agent
+                        handling diverse patient queries.</figcaption>
+                </figure>
+
+                <p>
+                    On the other side of the spectrum is <strong>Clin.IA</strong>, an automated secretary for medical
+                    clinics.
+                    Unlike Pam, where speed was everything, Clin.IA operates in an environment where <strong>accuracy
+                        and autonomy</strong> are paramount.
+                </p>
+
+                <p>
+                    <strong>The Context:</strong> Patients send a wide variety of messages: scheduling appointments,
+                    asking about prices, requesting directions, or just saying hello.
+                    The system cannot predict the user's intent linearly.
+                </p>
+
+                <p>
+                    Furthermore, <strong>latency is not a primary concern</strong>. A delay of 20-30 seconds is
+                    acceptable for a text message.
+                    In fact, if the system replies <em>too</em> instantly, it breaks the illusion of a helpful secretary
+                    and screams "Bot".
+                </p>
+
+                <p>
+                    <strong>The Solution:</strong> An <strong>Autonomous Agent</strong>.
+                </p>
+
+                <div class="question-box" style="border-left-color: #9b59b6;">
+                    <h3>Clin.IA's Agentic Logic</h3>
+                    <p>The system receives a message and enters a decision loop:</p>
+                    <ul class="question-list">
+                        <li><strong>Observation:</strong> "User asked: 'Do you have slots for tomorrow?'"</li>
+                        <li><strong>Thought:</strong> "I need to check the calendar. I don't know the user's preferred
+                            time yet."</li>
+                        <li><strong>Action (Tool Use):</strong> Call <code>check_calendar_tool(date="tomorrow")</code>.
+                        </li>
+                        <li><strong>Observation:</strong> "Calendar returns: Slots available at 10am and 4pm."</li>
+                        <li><strong>Thought:</strong> "I have the info. I will now reply to the user."</li>
+                        <li><strong>Final Action:</strong> "Yes, we have openings at 10am and 4pm. Would you like to
+                            book one?"</li>
+                    </ul>
+                </div>
+
+                <p>
+                    Because the problem space (medical secretary) involves high ambiguity and a need for complex tool
+                    usage (Database, Calendar, Pricing Sheet),
+                    a rigid workflow would be nightmare to maintain. The Agent architecture allows Clin.IA to adapt to
+                    the chaos of real-world inputs.
+                </p>
+
+                <h2>The Agentic Spectrum</h2>
+                <p>
+                    The reality is rarely binary. Most sophisticated systems live on a spectrum.
+                    Professor Andrew Ng and other thought leaders have popularized the term <strong>"Agentic
+                        Workflows"</strong>.
+                </p>
+
+                <figure>
+                    <img src="/images/articles/agentic_spectrum_diagram.png" alt="The Agentic Spectrum"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">From rigid workflows to
+                        fully autonomous agents, exploring the "Agentic Workflow" middle ground.</figcaption>
+                </figure>
+
+                <p>
+                    These are systems that look like workflows (they have a clear overall structure) but contain nodes
+                    with unchecked autonomy.
+                    For example, a "Router" step often acts as a mini-agent, deciding which specific sub-workflow to
+                    trigger based on the user's intent.
+                </p>
+
+                <h2>When to choose what?</h2>
+
+                <p>Use a <strong>Workflow</strong> when:</p>
+                <ul class="benefit-list">
+                    <li><i class="fa-solid fa-check benefit-icon"></i> The process is well-understood and repetitive.
+                    </li>
+                    <li><i class="fa-solid fa-check benefit-icon"></i> Reliability and low latency are critical.</li>
+                    <li><i class="fa-solid fa-check benefit-icon"></i> You need to minimize token usage (costs).</li>
+                </ul>
+
+                <p style="margin-top: 1.5rem;">Use an <strong>Agent</strong> when:</p>
+                <ul class="benefit-list">
+                    <li><i class="fa-solid fa-robot benefit-icon"></i> The input is highly ambiguous.</li>
+                    <li><i class="fa-solid fa-robot benefit-icon"></i> The number of edge cases is too high to code
+                        manually.</li>
+                    <li><i class="fa-solid fa-robot benefit-icon"></i> The system needs to explore an environment or
+                        react to dynamic feedback.</li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>
+                    Start with a workflow. Add agency only where you hit a wall of complexity that rule-based logic
+                    cannot solve.
+                    The most robust "Agents" in production today are often just very clever, flexible workflows with
+                    small pockets of autonomy.
+                </p>
+
+                <br>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="/articles/index.html" class="btn">Read More Articles</a>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Lucas Meneghesso Faria. All rights reserved.</p>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
