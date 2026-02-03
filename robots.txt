@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://lucasmfaria.github.io/sitemap.xml
+Sitemap: https://lmfhubtech.com/sitemap.xml
