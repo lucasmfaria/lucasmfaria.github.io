@@ -31,12 +31,27 @@
     <main id="maincontent"
         style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 2rem;">
         <h1 class="reveal" style="font-size: 4rem; color: var(--primary-color);">404</h1>
-        <p class="subtitle reveal">Page Not Found</p>
-        <p class="reveal" style="max-width: 600px; margin: 1rem 0;">
+        <p id="error-subtitle" class="subtitle reveal">Page Not Found</p>
+        <p id="error-text" class="reveal" style="max-width: 600px; margin: 1rem 0;">
             The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
         </p>
-        <a href="/" class="btn reveal" style="margin-top: 1rem;">Go to Homepage</a>
+        <a id="error-btn" href="/" class="btn reveal" style="margin-top: 1rem;">Go to Homepage</a>
     </main>
+
+    <script>
+        // Simple 404 localization
+        (function () {
+            if (window.location.pathname.startsWith('/pt/') || window.location.pathname === '/pt') {
+                document.documentElement.lang = 'pt-BR';
+                document.getElementById('error-subtitle').textContent = 'Página Não Encontrada';
+                document.getElementById('error-text').textContent = 'A página que você está procurando pode ter sido removida, ter tido seu nome alterado ou estar temporariamente indisponível.';
+                const btn = document.getElementById('error-btn');
+                btn.textContent = 'Ir para o Início';
+                btn.href = '/pt/';
+                document.title = '404 - Página Não Encontrada | Lucas Meneghesso Faria';
+            }
+        })();
+    </script>
 
     <footer>
         <p>&copy; 2026 Lucas Meneghesso Faria. All rights reserved.</p>
