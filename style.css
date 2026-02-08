@@ -965,6 +965,64 @@ footer {
     gap: 0.8rem;
 }
 
+/* Technical Level Indicator */
+.tech-level {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.tech-level-label {
+    margin-right: 0.3rem;
+}
+
+.tech-level-bars {
+    display: inline-flex;
+    gap: 3px;
+}
+
+.tech-level-bar {
+    width: 8px;
+    height: 14px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.tech-level-bar.active {
+    background: var(--accent-color);
+}
+
+/* Level-specific colors */
+.tech-level[data-level="1"] .tech-level-bar.active {
+    background: #10b981;
+    /* Green - easy */
+}
+
+.tech-level[data-level="2"] .tech-level-bar.active {
+    background: #f59e0b;
+    /* Orange - moderate */
+}
+
+.tech-level[data-level="3"] .tech-level-bar.active {
+    background: #ef4444;
+    /* Red - technical */
+}
+
+/* Card tech level styling */
+.article-card .tech-level {
+    margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Article header tech level styling */
+.article-meta .tech-level {
+    display: flex;
+    align-items: center;
+}
+
 /* Individual Article Page */
 .article-container {
     max-width: 800px;
