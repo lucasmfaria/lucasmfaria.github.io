@@ -694,6 +694,22 @@ footer {
         font-size: 1.1rem;
         /* reduz um pouco a fonte no mobile */
     }
+
+    /* Stack hero buttons vertically on mobile */
+    .hero-content {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+
+    .hero-content .btn,
+    .hero-content .btn-secondary {
+        display: block !important;
+        width: 100% !important;
+        max-width: 280px;
+        margin: 0.5rem 0 !important;
+        text-align: center;
+    }
 }
 
 /* telas muito pequenas: reduz ainda mais o texto do logo */
@@ -971,6 +987,7 @@ footer {
 .benefit-icon {
     color: var(--accent-color);
 }
+
 /* ======================= PRICING SECTION ======================= */
 .pricing-section {
     background-color: var(--bg-color);
