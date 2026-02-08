@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="/lang-detect.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The New Data Ecosystem: Career Guide 2025-2026 - Lucas Meneghesso Faria</title>
+    <meta name="description"
+        content="Complete guide to data careers: Data Engineer, Data Scientist, ML Engineer, AI Engineer, and Analytics Engineer. Understand the differences and trends for 2025-2026.">
+
+    <!-- Open Graph tags -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="The New Data Ecosystem: Career Guide 2025-2026">
+    <meta property="og:description"
+        content="Complete guide to data careers: Data Engineer, Data Scientist, ML Engineer, AI Engineer, and Analytics Engineer. Understand the differences and trends.">
+    <meta property="og:image" content="https://lmfhubtech.com/images/articles/data_ecosystem_careers.png">
+    <meta property="og:url" content="https://lmfhubtech.com/articles/data-ecosystem-careers.html">
+    <link rel="canonical" href="https://lmfhubtech.com/articles/data-ecosystem-careers.html">
+    <link rel="alternate" hreflang="en" href="https://lmfhubtech.com/articles/data-ecosystem-careers.html">
+    <link rel="alternate" hreflang="pt-BR" href="https://lmfhubtech.com/pt/articles/data-ecosystem-careers.html">
+    <link rel="alternate" hreflang="x-default" href="https://lmfhubtech.com/articles/data-ecosystem-careers.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "The New Data Ecosystem: Career Guide 2025-2026",
+        "description": "Complete guide to data careers: Data Engineer, Data Scientist, ML Engineer, AI Engineer, and Analytics Engineer.",
+        "image": "https://lmfhubtech.com/images/articles/data_ecosystem_careers.png",
+        "author": {
+            "@type": "Person",
+            "name": "Lucas Meneghesso Faria",
+            "url": "https://lmfhubtech.com/"
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Lucas Meneghesso Faria"
+        },
+        "datePublished": "2026-02-08",
+        "dateModified": "2026-02-08",
+        "inLanguage": "en",
+        "mainEntityOfPage": "https://lmfhubtech.com/articles/data-ecosystem-careers.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://lmfhubtech.com/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Articles",
+            "item": "https://lmfhubtech.com/articles/"
+        },{
+            "@type": "ListItem",
+            "position": 3,
+            "name": "The New Data Ecosystem: Career Guide 2025-2026"
+        }]
+    }
+    </script>
+
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon.svg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js for syntax highlighting if needed -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+
+    <style>
+        .career-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .career-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .career-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .career-card .mission {
+            font-style: italic;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .career-card ul {
+            margin: 0.5rem 0;
+        }
+
+        .career-card li {
+            margin: 0.25rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(var(--accent-color-rgb), 0.2);
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-box strong {
+            color: var(--accent-color);
+        }
+
+        .new-star {
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .trend-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .trend-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+        }
+
+        .trend-list .trend-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Ecosystem Flow Diagram */
+        .ecosystem-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.8));
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flow-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .flow-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .flow-icon.data-eng {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+
+        .flow-icon.data-sci {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        }
+
+        .flow-icon.ml-eng {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .flow-icon.ai-eng {
+            background: linear-gradient(135deg, #ec4899, #db2777);
+        }
+
+        .flow-icon.analytics {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .flow-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 600px) {
+            .flow-arrow {
+                display: none;
+            }
+
+            .ecosystem-flow {
+                gap: 1rem;
+            }
+        }
+
+        /* Skill Meters */
+        .skill-meter {
+            margin: 1rem 0;
+        }
+
+        .skill-meter-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .skill-meter-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-meter-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .skill-meter-fill.coding {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+        }
+
+        .skill-meter-fill.stats {
+            background: linear-gradient(90deg, #8b5cf6, #a78bfa);
+        }
+
+        .skill-meter-fill.infra {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+
+        .skill-meter-fill.llm {
+            background: linear-gradient(90deg, #ec4899, #f472b6);
+        }
+
+        .skill-meter-fill.business {
+            background: linear-gradient(90deg, #10b981, #34d399);
+        }
+
+        /* Stats Section */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-color), #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.25rem;
+        }
+
+        /* Quote Section */
+        .featured-quote {
+            position: relative;
+            padding: 2rem;
+            margin: 2rem 0;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.05));
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .featured-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--accent-color);
+            opacity: 0.3;
+            font-family: Georgia, serif;
+        }
+
+        .featured-quote p {
+            font-size: 1.25rem;
+            font-style: italic;
+            opacity: 0.95;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#maincontent">Skip to content</a>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="nav-logo">Lucas Meneghesso Faria</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="/#projects" class="nav-link">Projects</a></li>
+                <li class="nav-item"><a href="/articles/index.html" class="nav-link active">Articles</a></li>
+                <li class="nav-item"><a href="/#contact" class="nav-link">Contact</a></li>
+                <li class="nav-item lang-switcher"><a href="/pt/articles/data-ecosystem-careers.html">PT-BR</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main id="maincontent">
+        <article class="article-container">
+            <a href="/articles/index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Articles</a>
+
+            <header class="article-header">
+                <div class="article-meta">
+                    <span><i class="fa-regular fa-calendar"></i> February 08, 2026</span>
+                    <span><i class="fa-solid fa-tag"></i> Data Careers</span>
+                    <span><i class="fa-solid fa-clock"></i> 5 min read</span>
+                </div>
+                <h1 class="article-title">The New Data Ecosystem: Career Guide and Differences (2025-2026)</h1>
+            </header>
+
+            <div class="article-content">
+                <figure>
+                    <img src="/images/articles/data_ecosystem_careers.png" alt="Data Ecosystem Careers"
+                        class="concept-img" loading="lazy">
+                    <figcaption style="text-align: center; font-size: 0.9em; opacity: 0.8;">The modern data ecosystem
+                        demands specialization and role clarity.</figcaption>
+                </figure>
+
+                <h2>1. The Current Context</h2>
+                <p>
+                    The era of the "jack-of-all-trades" data professional is over. Today, the complexity of AI systems
+                    and data volume requires <strong>specialization</strong>. The major game-changer is
+                    <strong>Generative AI</strong>, which created new needs (like AI Engineering) and
+                    completely transformed how we analyze and process data.
+                </p>
+                <p>
+                    Whether you're entering the field or considering a career transition, understanding the differences
+                    between each role is essential for charting your professional path.
+                </p>
+
+                <!-- Stats Section -->
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Main Career Paths</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">+40%</div>
+                        <div class="stat-label">AI Engineer Demand</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2024</div>
+                        <div class="stat-label">GenAI Explosion Year</div>
+                    </div>
+                </div>
+
+                <!-- Ecosystem Flow Diagram -->
+                <h3 style="text-align: center; margin-top: 2rem;">How the Roles Connect</h3>
+                <div class="ecosystem-flow">
+                    <div class="flow-item">
+                        <div class="flow-icon data-eng"><i class="fa-solid fa-database"></i></div>
+                        <span class="flow-label">Data Engineer</span>
+                    </div>
+                    <span class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="flow-item">
+                        <div class="flow-icon analytics"><i class="fa-solid fa-chart-line"></i></div>
+                        <span class="flow-label">Analytics Eng.</span>
+                    </div>
+                    <span class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="flow-item">
+                        <div class="flow-icon data-sci"><i class="fa-solid fa-flask"></i></div>
+                        <span class="flow-label">Data Scientist</span>
+                    </div>
+                    <span class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="flow-item">
+                        <div class="flow-icon ml-eng"><i class="fa-solid fa-gears"></i></div>
+                        <span class="flow-label">ML Engineer</span>
+                    </div>
+                    <span class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></span>
+                    <div class="flow-item">
+                        <div class="flow-icon ai-eng"><i class="fa-solid fa-robot"></i></div>
+                        <span class="flow-label">AI Engineer</span>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 0.9em; opacity: 0.7; margin-top: 0.5rem;">
+                    <i class="fa-solid fa-info-circle"></i> The flow shows how data moves between areas, but in practice
+                    interactions are more complex and bidirectional.
+                </p>
+
+                <div class="featured-quote">
+                    <p>The most valuable professional is one who understands the whole, even while specializing in one
+                        part.</p>
+                </div>
+
+                <h2>2. The Main Career Paths Defined</h2>
+
+                <!-- Data Engineer -->
+                <div class="career-card">
+                    <h3><i class="fa-solid fa-database"></i> Data Engineer</h3>
+                    <p class="mission">"The infrastructure architect. Without them, nobody else can work."</p>
+                    <p>The Data Engineer ensures that data flows from source to destination cleanly, securely, and
+                        quickly.</p>
+                    <ul>
+                        <li><strong>What they do:</strong> Create data <em>pipelines</em>, manage <em>Data
+                                Warehouses</em> and <em>Data Lakes</em>.</li>
+                        <li><strong>Focus:</strong> Reliability, scalability, and data quality.</li>
+                        <li><strong>Tools:</strong> Apache Spark, Airflow, dbt, SQL, Python, Cloud (AWS/GCP/Azure).</li>
+                    </ul>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Programming</span><span>90%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill coding" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Infrastructure</span><span>95%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill infra" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Statistics</span><span>30%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill stats" style="width: 30%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Scientist -->
+                <div class="career-card">
+                    <h3><i class="fa-solid fa-flask"></i> Data Scientist</h3>
+                    <p class="mission">"The investigator. Discovers hidden patterns and answers complex questions."</p>
+                    <p>Uses mathematics and statistics to generate strategic <em>insights</em> that guide business
+                        decisions.</p>
+                    <ul>
+                        <li><strong>What they do:</strong> Create predictive models ("what will happen?"), A/B tests,
+                            and deep exploratory analyses.</li>
+                        <li><strong>Focus:</strong> Experimentation, statistics, and strategic <em>insight</em>
+                            generation.</li>
+                        <li><strong>Tools:</strong> Python (Pandas, Scikit-learn), Jupyter Notebooks, R, SQL.</li>
+                    </ul>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Statistics</span><span>95%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill stats" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Programming</span><span>70%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill coding" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Business</span><span>60%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill business" style="width: 60%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ML Engineer -->
+                <div class="career-card">
+                    <h3><i class="fa-solid fa-gears"></i> Machine Learning Engineer (ML Engineer / MLOps)</h3>
+                    <p class="mission">"The scale builder. Transforms prototypes into production systems."</p>
+                    <p>Takes the model the Data Scientist created (often just a prototype) and puts it into production
+                        to serve millions of users.</p>
+                    <ul>
+                        <li><strong>What they do:</strong> Optimize models for speed, monitor real-time performance, and
+                            manage training infrastructure.</li>
+                        <li><strong>Focus:</strong> Software performance, latency, and <em>deployment</em>.</li>
+                        <li><strong>Tools:</strong> Docker, Kubernetes, MLflow, Kubeflow, CI/CD, Cloud.</li>
+                    </ul>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Infrastructure</span><span>85%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill infra" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Programming</span><span>85%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill coding" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Statistics</span><span>55%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill stats" style="width: 55%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Engineer -->
+                <div class="career-card">
+                    <h3><i class="fa-solid fa-robot"></i> AI Engineer <span class="new-star">THE NEW STAR</span></h3>
+                    <p class="mission">"The AI integrator. Applies LLMs and Generative AI to products."</p>
+                    <p>Unlike ML Engineers who <em>train</em> models from scratch, AI Engineers focus on
+                        <em>applying</em> Large Language Models (LLMs) and Generative AI to real products.</p>
+                    <ul>
+                        <li><strong>What they do:</strong> Build RAG (Retrieval-Augmented Generation) systems, create AI
+                            Agents, integrate OpenAI/Anthropic/Google APIs, and perform advanced <em>Prompt
+                                Engineering</em>.</li>
+                        <li><strong>Focus:</strong> Building intelligent applications using pre-existing models.</li>
+                        <li><strong>Tools:</strong> LangChain, LangGraph, Vector Databases (Pinecone, Weaviate), LLM
+                            APIs.</li>
+                    </ul>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>LLMs / GenAI</span><span>95%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill llm" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Programming</span><span>80%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill coding" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Infrastructure</span><span>50%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill infra" style="width: 50%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Engineer -->
+                <div class="career-card">
+                    <h3><i class="fa-solid fa-chart-line"></i> Analytics Engineer</h3>
+                    <p class="mission">"The bridge between raw engineering and business analysis."</p>
+                    <p>Applies business rules to clean data, transforming raw data into tables ready to be used in
+                        dashboards.</p>
+                    <ul>
+                        <li><strong>What they do:</strong> Dimensional modeling, data documentation, standardized
+                            metrics creation.</li>
+                        <li><strong>Focus:</strong> Data modeling and governance for BI analysts.</li>
+                        <li><strong>Tools:</strong> SQL, dbt, Looker, Tableau, BigQuery.</li>
+                    </ul>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Business</span><span>85%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill business" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Programming (SQL)</span><span>75%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill coding" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-meter">
+                        <div class="skill-meter-label"><span>Infrastructure</span><span>40%</span></div>
+                        <div class="skill-meter-bar">
+                            <div class="skill-meter-fill infra" style="width: 40%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>3. Comparison Chart: The Crucial Differences</h2>
+                <p>One of the biggest confusions in the market is understanding the difference between Data Scientist,
+                    ML Engineer, and AI Engineer. Here's the comparison:</p>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Characteristic</th>
+                            <th>Data Scientist</th>
+                            <th>ML Engineer</th>
+                            <th>AI Engineer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Main Deliverable</strong></td>
+                            <td>A statistical model, report, or <em>insight</em></td>
+                            <td>A robust software system serving predictions</td>
+                            <td>An application using AI (e.g., chatbot, copilot)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Main Tools</strong></td>
+                            <td>Python (Pandas, Scikit-learn), Jupyter Notebooks</td>
+                            <td>Docker, Kubernetes, Cloud (AWS/GCP), CI/CD</td>
+                            <td>LangChain, Vector Databases, LLM APIs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mindset</strong></td>
+                            <td>"Is this statistically valid?"</td>
+                            <td>"Can this handle 10k requests per second?"</td>
+                            <td>"How do I make the AI understand company context?"</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight-box">
+                    <strong><i class="fa-solid fa-key"></i> The Key Point:</strong><br>
+                    The <em>Scientist</em> discovers the "what" and "why." The <em>ML Engineer</em> ensures it always
+                    works.
+                    The <em>AI Engineer</em> brings new natural language and reasoning capabilities to the product.
+                </div>
+
+                <h2>4. Trends for 2025-2026</h2>
+                <p>What companies are looking for now:</p>
+
+                <ul class="trend-list">
+                    <li>
+                        <span class="trend-icon"><i class="fa-solid fa-arrows-spin"></i></span>
+                        <div>
+                            <strong>Full-cycle:</strong> Professionals who understand a bit of the end-to-end.
+                            For example, a Data Scientist who can do basic deployments or an AI Engineer
+                            who understands statistical modeling.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="trend-icon"><i class="fa-solid fa-briefcase"></i></span>
+                        <div>
+                            <strong>Business Vision:</strong> Knowing how to code is useless if you can't solve
+                            the company's problems. The ability to translate business requirements into technical
+                            solutions is increasingly valued.
+                        </div>
+                    </li>
+                    <li>
+                        <span class="trend-icon"><i class="fa-solid fa-rotate"></i></span>
+                        <div>
+                            <strong>Adaptability:</strong> The tools used today might change next month
+                            (especially in AI). The ability to learn quickly and adapt is more important
+                            than mastering any specific tool.
+                        </div>
+                    </li>
+                </ul>
+
+                <h2>Conclusion</h2>
+                <p>
+                    The data ecosystem is more specialized than ever, but that doesn't mean you need to choose
+                    just one path and stay stuck in it. Understanding the differences between each role helps
+                    you identify where you fit best and which skills to develop for career growth.
+                </p>
+                <p>
+                    If you're just starting out, my suggestion is: choose a foundational area (Data Engineering or
+                    Data Science are good starting points), but keep your curiosity about adjacent areas.
+                    The most valuable professional is one who understands the whole, even while being
+                    a specialist in one part.
+                </p>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="/articles/index.html"
+                        style="color: var(--text-color); text-decoration: underline; opacity: 0.8;">Back to Articles</a>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Lucas Meneghesso Faria. All rights reserved.</p>
+    </footer>
+
+    <script src="/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+</body>
+
+</html>
